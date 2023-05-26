@@ -92,3 +92,44 @@ set.add(30);
 
 console.log(set.has(20))
 console.log(set.size);
+
+//Proxy
+const person = {
+    name: 'John',
+    age: 30
+};
+
+const proxy = new Proxy(person, {
+    get(target, property) {
+        console.log(`Accessed property: ${property}`)
+        return target[property];
+    },
+    set(target, property, value) {
+        console.log(`Set property: ${property} = ${value}`);
+        target[property] = value;
+    }
+});
+
+proxy.name;
+proxy.age = 31;
+
+//Web APIs
+
+fetch('https://api.example.com/data')
+ .then(response => response.json())
+ .then(data => console.log(data))
+ .catch(error => console.log('Error:', error));
+
+ navigator.geolocation.getCurrentPosition(position => {
+    console.log('Latitude:', position.coords.latitude);
+    console.log('Longitude:', position.coords.longitude)
+ }, error => {
+    console.log('Error:', error);
+ });
+
+ //Module Bundlers (e.g., Webpack)
+
+ import { add, subtract } from './math.js';
+
+ console.log(add(5, 3));
+ console.log(subtract(10, 7));
