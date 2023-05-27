@@ -133,3 +133,31 @@ fetch('https://api.example.com/data')
 
  console.log(add(5, 3));
  console.log(subtract(10, 7));
+
+
+ //Another Proxy
+ const targetObject = {
+    name: 'John',
+    age: 30
+ }
+
+ const handler = {
+    get(target, property) {
+        console.log(`Accessed property: ${property}`);
+        return target[property];
+    },
+    set(target, property, value) {
+        console.log(`Set property: ${property} = ${value}`);
+        target[property] = value;
+    },
+    deleteProperty(target, property) {
+        console.log(`Deleted property: ${property}`);
+        delete target[property];
+    }
+ };
+
+ const proxyObject = new Proxy(targetObject, handler);
+
+ console.log(proxyObject.name);
+ proxyObject.age = 31;
+ delete proxyObject.age;
