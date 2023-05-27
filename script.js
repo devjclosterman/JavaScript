@@ -127,14 +127,7 @@ fetch('https://api.example.com/data')
     console.log('Error:', error);
  });
 
- //Module Bundlers (e.g., Webpack)
-
- import { add, subtract } from './math.js';
-
- console.log(add(5, 3));
- console.log(subtract(10, 7));
-
-
+ 
  //Another Proxy
  const targetObject = {
     name: 'John',
@@ -161,3 +154,70 @@ fetch('https://api.example.com/data')
  console.log(proxyObject.name);
  proxyObject.age = 31;
  delete proxyObject.age;
+
+ //Memoization 
+//  function fibonacci(n, memo = {}) {
+//     if(n <= 1) {
+//         return n;
+//     }
+
+//     if(memo[n]) {
+//         return memo[n];
+//     }
+
+//     memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo);
+//     return memo[n];
+//  }
+
+//  console.log(fibonacci(5));
+////////////////////////////////////////////////////////////////////
+
+//Currying
+
+function add(x) {
+    return function(y) {
+        return x + y;
+    };
+}
+
+const add5 = add(5);
+console.log(add5(3)); // 8
+
+// Higher order functions 
+function multiplyBy(factor) {
+    return function(x) {
+        return x * factor;
+    };
+}
+
+const double = multiplyBy(2);
+console.log(double(5)); // 10
+
+//method chaining
+
+class Calculator {
+    constructor() {
+        this.value = 0;
+    }
+    add(x) {
+        this.value += x;
+        return this;
+    }
+    multiply(x) {
+        this.value *= x;
+        return this;
+    }
+    getValue() {
+        return this.value;
+    }
+}
+
+const results = new Calculator().add(5).multiply(3).getValue();
+console.log(results)
+
+// Web workers
+const worker = new Worker('worker.js');
+worker.postMessage('Hello from main thread!');
+worker.onmessage = function(event) {
+    console.log('Received message from worker:', event.data);
+};
