@@ -221,3 +221,126 @@ worker.postMessage('Hello from main thread!');
 worker.onmessage = function(event) {
     console.log('Received message from worker:', event.data);
 };
+
+
+// Connect 4 algo
+// Define the game board
+const board = [
+    [0, 0, 0, 0, 0, 0, 0], // Row 0
+    [0, 0, 0, 0, 0, 0, 0], // Row 1
+    [0, 0, 0, 0, 0, 0, 0], // Row 2
+    [0, 0, 0, 0, 0, 0, 0], // Row 3
+    [0, 0, 0, 0, 0, 0, 0], // Row 4
+    [0, 0, 0, 0, 0, 0, 0]  // Row 5
+  ];
+  
+  // Function to check if a player has won
+  function checkWin(player) {
+    // Check horizontal
+    for (let row = 0; row < 6; row++) {
+      for (let col = 0; col < 4; col++) {
+        if (
+          board[row][col] === player &&
+          board[row][col + 1] === player &&
+          board[row][col + 2] === player &&
+          board[row][col + 3] === player
+        ) {
+          return true;
+        }
+      }
+    }
+  
+    // Check vertical
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 7; col++) {
+        if (
+          board[row][col] === player &&
+          board[row + 1][col] === player &&
+          board[row + 2][col] === player &&
+          board[row + 3][col] === player
+        ) {
+          return true;
+        }
+      }
+    }
+  
+    // Check diagonal (top-left to bottom-right)
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 4; col++) {
+        if (
+          board[row][col] === player &&
+          board[row + 1][col + 1] === player &&
+          board[row + 2][col + 2] === player &&
+          board[row + 3][col + 3] === player
+        ) {
+          return true;
+        }
+      }
+    }
+  
+    // Check diagonal (bottom-left to top-right)
+    for (let row = 3; row < 6; row++) {
+      for (let col = 0; col < 4; col++) {
+        if (
+          board[row][col] === player &&
+          board[row - 1][col + 1] === player &&
+          board[row - 2][col + 2] === player &&
+          board[row - 3][col + 3] === player
+        ) {
+          return true;
+        }
+      }
+    }
+  
+    return false;
+  }
+  
+  // Example usage:
+  // Assume player 1 is represented by '1' on the board, and player 2 is represented by '2'.
+  // Let's assume player 1 has made their moves on the board, and we want to check if they have won.
+  if (checkWin(1)) {
+    console.log("Player 1 wins!");
+  } else {
+    console.log("Player 1 did not win.");
+  }
+  
+// More Complex   // In this example, we define two functions. The first function, isPrime, checks whether a given number is prime or not. It uses a basic primality test using a loop and the modulus operator.
+
+//The second function, generatePrimes, generates the first 'n' prime numbers. It utilizes the isPrime function to determine if a number is prime and keeps track of the count of prime numbers found.
+
+//Finally, we test the generatePrimes function by calling it with numberOfPrimes = 5 and store the result in the primeNumbers variable. The script then logs the generated prime numbers to the console.
+
+
+//function to check if a number is prime
+function isPrime(number) {
+    if(number <= 1) {
+        return false;
+    }
+    for (let i = 2; i <= Math.sqrt(number); i++) {
+        if(number % i === 0) {
+            return false;
+        }        
+    }
+    return true;
+}
+
+//Function to generate the first 'n' prime numbers
+function generatePrimes(n) {
+    const primes = [];
+    let count = 0;
+    let number = 2;
+
+    while(count < n) {
+        if(isPrime(number)) {
+            primes.push(number);
+            count++;
+        }
+        number++;
+    }
+    return primes;
+}
+
+//Test the generatePrimes function
+const numberOfPrimes = 5;
+const primeNumbers = generatePrimes(numberofPrimes);
+console.log(`The first ${numberOfPrimes} prime numbers are: ${primeNumbers.join(', ')}`);
